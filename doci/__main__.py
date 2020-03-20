@@ -15,7 +15,7 @@ def main():
     with options.config.open() as f:
         config = json.load(f)
 
-    doci = Doci()
+    doci = Doci(config["prefix"])
     doci.load_extensions()
     doci.run(config["token"])
 

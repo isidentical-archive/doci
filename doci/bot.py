@@ -1,11 +1,14 @@
 from pathlib import Path
 
 import discord
+from discord.ext import commands
 
 EXTENSIONS_DIR = Path(__file__).parent / "extensions"
 
 
-class Doci(discord.Client):
+class Doci(commands.Bot):
     def load_extensions(self):
-        for extensions in EXTENSIONS_DIR.glob("**/*.py"):
-            self.load_extension(extension)
+        for extension in EXTENSIONS_DIR.glob("**/*.py"):
+            if extension.stem == "__init__":
+                continue
+            self.load_extension(f"doci.extensions.{extension.stem}")
